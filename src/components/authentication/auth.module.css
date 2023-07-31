@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@400;600;700&display=swap');
+
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+.container {
+    background-color: #d6ffff;
+    background-image: linear-gradient(214deg, #d6ffff 0%, #bbbb93 100%);
+    width: 40%;
+    height: 300px;
+    border: 1px solid rgb(37, 123, 126);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.headingContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20%;
+}
+
+.heading {
+    font-family: 'Signika', sans-serif;
+    font-size: 25px;
+    color: rgb(18, 100, 96);
+}
+
+.signInContainer {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.signInWraper {
+    width: 50%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.signin {
+    width: 100%;
+    height: 60%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+    justify-content: flex-start;
+    gap: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.signinImg {
+    width: 30px;
+}
+
+.signinTxt{
+    font-family: 'signika', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.signinNote {
+    text-decoration: underline;
+    cursor: pointer;
+    color: rgb(33, 41, 44);
+    
+}
+
+
+@media screen and (max-width: 1200px){
+    .container {
+        width: 60%;
+    }
+}
+
+
+@media screen and (max-width: 780px){
+    .container {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 520px){
+    .container {
+        width: 90%;
+    }
+    .signInWraper {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 380px){
+    .signInWraper {
+        width: 80%;
+    }
+}

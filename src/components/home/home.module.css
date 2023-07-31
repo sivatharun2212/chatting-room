@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@400;600;700&display=swap');
+
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 80%;
+    height: 80%;
+}
+
+.roomType {
+    width: 100%;
+    height: 40%;
+    background-color: #d6ffff;
+    background-image: linear-gradient(214deg, #d6ffff 0%, #bbbb93 100%);
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid rgb(37, 123, 126);
+    border-radius: 10px;
+
+}
+
+.createContainer {
+    width: 50%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 50px;
+    border-right: 1px solid rgb(37, 123, 126);
+}
+
+.joinContainer {
+    width: 50%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 50px;
+    border-left: 1px solid rgb(37, 123, 126);
+
+}
+
+.Heading {
+    font-family: 'Signika', sans-serif;
+    font-size: 25px;
+    color: rgb(18, 100, 96);
+}
+
+.btn {
+    width: 150px;
+    height: 50px;
+    background-color: white;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #06323d;
+    font-size: 15px;
+    font-weight: 600;
+}   
+
+.ActionContainer {
+    width: 100%;
+    height: 50%;
+}
+
+.creating {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+} 
+
+.joining {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.createForm , .joinForm{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 0px;
+}
+
+.createForm > input {
+    width: 100%;
+    height: 40px;
+    border: 1px solid rgb(37, 123, 126);
+    border-radius: 5px;
+    padding-left: 20px;
+    outline: none;
+}
+.joinForm > input {
+    width: 100%;
+    height: 40px;
+    border: 1px solid rgb(37, 123, 126);
+    border-radius: 5px;
+    padding-left: 20px;
+    outline: none;
+}
+
+.roomBtn {
+    width: 100px;
+    height: 30px;
+    background-color: #06323d;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.displayName {
+    width: 100%;
+    height: 10%;
+    padding: 0px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.welcomeTxt {
+    font-family: "signika", sans-serif;
+}
+
+.name {
+    color: rgb(18, 100, 96);
+}
