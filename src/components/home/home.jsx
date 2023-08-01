@@ -1,8 +1,9 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import styles from "./home.module.css";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { UserContext } from "../../context/userContext";
+import { debounce } from "lodash";
 
 const Home = ({ signout,setRoom }) => {
     const {userData} = useContext(UserContext);
@@ -13,8 +14,29 @@ const Home = ({ signout,setRoom }) => {
     const [createPass, setCreatePass] = useState("");
     const [joinId, setJoinId] = useState("");
     const [joinPass, setJoinPass] = useState("");
+    const [roomData, setRoomData] = useState(null)
     // const [isLoading, setIsLoading] = useState(true);
-    
+    const getroomData = async() => {
+        if(joinId && joinPass !== ""){
+            try{
+                const roomRef = doc(db, "rooms", joinId);
+                const roomSnapshot = await getDoc(roomRef);
+                if(roomSnapshot.exists){
+                    setRoomData(roomSnapshot.data())
+                }
+            }catch(error){
+                console.log(error.message);
+            }
+        }
+        console.log("hhhhhhh",roomData);
+    }
+
+    const debounceGetroomData = debounce(getroomData, 1000)
+    useEffect(() => {
+
+        debounceGetroomData();
+    }, [debounceGetroomData])
+
     const handlecreated = () => {
         setIsCreated(true);
         setIsJoined(false);
@@ -30,6 +52,7 @@ const Home = ({ signout,setRoom }) => {
             localStorage.setItem("current-room", JSON.stringify(joinId));
             setRoom(joinId);
             console.log(userData);
+
         }else{
             alert("fill out the fileds")
         }
@@ -41,37 +64,23 @@ const Home = ({ signout,setRoom }) => {
             localStorage.setItem("current-room", JSON.stringify(createId));
             setRoom(createId);
             console.log(userData);
+            const createdAt = new Date().toLocaleTimeString();
             const docRef = doc(db, "rooms", createId)
             await setDoc(docRef,{
                 createdBy : userData?.email,
                 roomID : createId,
                 roomName : `${userData?.displayName}'s Room`,
                 roomPassword: createPass,
-                members:[userData?.email]
+                createdAt,
+                members:[{
+                    email: userData?.email,
+                    name: userData?.displayName,
+                }]
             })
         }else{
             alert("fill out the fileds")
         }
     }
-
-    // useEffect(() => {
-    //     const getUserData = async () => {
-    //         try{
-    //             const docRef = doc(db, "users", userData?.email)
-    //             const fetchedSnapshot = await getDoc(docRef)
-    //             if(fetchedSnapshot.exists){
-    //                 const fetchedSnapshotData = fetchedSnapshot.data();
-    //                 setFetchedUserData(fetchedSnapshotData);
-    //                 setIsLoading(false);
-    //             }
-    //         }catch(error){
-    //             console.log("not fetched",error.message);
-    //             setIsLoading(false);
-
-    //         }
-    //     }
-    //     getUserData();
-    // },[userData])
     
     return <>
     <div className={styles.container}>
