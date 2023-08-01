@@ -9,13 +9,14 @@ import Room from './components/room/room';
 
 function App() {
   const cookies = new Cookies();
-
+  const currentRoom = JSON.parse(localStorage.getItem("current-room")) || null;
   const [isAuth, setIsAuth] = useState(cookies.get("auth-token"));
-  const [room, setRoom] = useState(null)
+  const [room, setRoom] = useState(currentRoom)
   const signout = async() => {
     await signOut(auth);
     cookies.remove("auth-token");
-    localStorage.removeItem("userDetails")
+    localStorage.removeItem("userDetails");
+    localStorage.removeItem("current-room");
     setIsAuth(false)
   }
 
@@ -32,7 +33,7 @@ function App() {
   return (
     <>
     {room ? (<div className='chatting-page'>
-              <Room setRoom={setRoom} signout={signout}/>
+              <Room room={room} setRoom={setRoom} signout={signout}/>
         </div>) : (<div className='home-page'>
                     <Home setRoom={setRoom} signout={signout}/>
                   </div>)}

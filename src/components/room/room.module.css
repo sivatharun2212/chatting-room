@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@400;600;700&display=swap');
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.chatContainer {
+    width: 100%;
+    height: 90%;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.exitContainer {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    width: 150px;
+    height: 50px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 2px 2px 10px rgba(128, 128, 128, 0.589);
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #06323d;
+    font-size: 15px;
+    font-weight: 600;
+}   
+
+.chat {
+    width: 68%;
+    height: 100%;
+    background-color: #d6ffff;
+    background-image: linear-gradient(214deg, #d6ffff 0%, #bbbb93 100%);
+    border-radius: 10px;
+    border: 1px solid rgb(37, 123, 126);
+}
+
+.sideContainer {
+    width: 28%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.notificationsContainer {
+    width: 100%;
+    height: 58%;
+    background-color: #d6ffff;
+    background-image: linear-gradient(214deg, #d6ffff 0%, #bbbb93 100%);
+    border-radius: 10px;
+    border: 1px solid rgb(37, 123, 126);
+}
+
+.activeMembersContainer {
+    width: 100%;
+    height: 38%;
+    background-color: #d6ffff;
+    background-image: linear-gradient(214deg, #d6ffff 0%, #bbbb93 100%);
+    border-radius: 10px;
+    border: 1px solid rgb(37, 123, 126);
+}
+
+.header {
+    width: 100%;
+    height: 10%;
+    background-color: rgba(255, 255, 255, 0.514);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.548);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.amheader {
+    width: 100%;
+    height: 15%;
+    background-color: rgba(255, 255, 255, 0.514);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.548);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.name {
+    color: rgb(18, 100, 96);
+    font-family: "signika", sans-serif;
+    font-size: 18px;
+}
+
+.membersScreen {
+    width: 100%;
+    height: calc(100% - 15%);
+    padding: 10px 15px;
+}
+
+.activeMember {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #06323d;
+    font-family: "signika",sans-serif;
+}

@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import styles from "./home.module.css";
-// import { doc, getDoc } from "firebase/firestore";
-// import { db } from "../../config/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../config/firebase";
 import { UserContext } from "../../context/userContext";
 
 const Home = ({ signout,setRoom }) => {
@@ -27,19 +27,28 @@ const Home = ({ signout,setRoom }) => {
     const joinRoom = (event) => {
         event.preventDefault();
         if(joinId && joinPass !== ""){
+            localStorage.setItem("current-room", JSON.stringify(joinId));
             setRoom(joinId);
+            console.log(userData);
         }else{
             alert("fill out the fileds")
         }
     }   
 
-    const createRoom = (event) => {
+    const createRoom = async (event) => {
         event.preventDefault();
         if(createId && createPass !== ""){
+            localStorage.setItem("current-room", JSON.stringify(createId));
             setRoom(createId);
             console.log(userData);
-            // console.log(fetchedUserData);
-            
+            const docRef = doc(db, "rooms", createId)
+            await setDoc(docRef,{
+                createdBy : userData?.email,
+                roomID : createId,
+                roomName : `${userData?.displayName}'s Room`,
+                roomPassword: createPass,
+                members:[userData?.email]
+            })
         }else{
             alert("fill out the fileds")
         }
