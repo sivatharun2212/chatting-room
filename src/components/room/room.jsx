@@ -1,11 +1,12 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
+// import { useContext } from "react";
 import styles from "./room.module.css";
 import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { db } from "../../config/firebase"
-import { UserContext } from "../../context/userContext";
+// import { UserContext } from "../../context/userContext";
 
 const Room = ({room , setRoom}) => {
-    const {userData} = useContext(UserContext);
+    // const {userData} = useContext(UserContext);
     const [roomDetails, setRoomDetails]=useState(null)
     const exitRoom = () => {
         deleteRoom()
@@ -21,7 +22,6 @@ const Room = ({room , setRoom}) => {
                 if(roomSnapshot.exists){
                     const roomData = roomSnapshot.data();
                     setRoomDetails(roomData);
-                    console.log("roomdetails",roomDetails);
                 }
             }catch(error){
                 console.log(error.message);
