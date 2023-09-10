@@ -1,11 +1,10 @@
 import { useState, useContext, useEffect } from "react";
 import styles from "./home.module.css";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { UserContext } from "../../context/userContext";
-import { debounce } from "lodash";
 
-const Home = ({ signout,setRoom }) => {
+const Home = ({signout,setRoom }) => {
     const {userData} = useContext(UserContext);
     // const [fetchedUserData, setFetchedUserData] = useState(null);
     const [isCreated, setIsCreated] = useState(false);
@@ -14,28 +13,23 @@ const Home = ({ signout,setRoom }) => {
     const [createPass, setCreatePass] = useState("");
     const [joinId, setJoinId] = useState("");
     const [joinPass, setJoinPass] = useState("");
-    const [roomData, setRoomData] = useState(null)
+    const [roomData, setRoomData] = useState(null);
     // const [isLoading, setIsLoading] = useState(true);
-    const getroomData = async() => {
+
+    const getRoomData = async() => {
         if(joinId && joinPass !== ""){
-            try{
-                const roomRef = doc(db, "rooms", joinId);
-                const roomSnapshot = await getDoc(roomRef);
-                if(roomSnapshot.exists){
-                    setRoomData(roomSnapshot.data())
-                }
-            }catch(error){
-                console.log(error.message);
+            const roomRef = doc(db, "rooms", joinId);
+            const roomSnapshot = await getDoc(roomRef);
+            if(roomSnapshot.exists){
+                setRoomData(roomSnapshot.data())
+                console.log("roomData",roomData);
             }
         }
-        console.log("hhhhhhh",roomData);
+
     }
-
-    const debounceGetroomData = debounce(getroomData, 1000)
     useEffect(() => {
-
-        debounceGetroomData();
-    }, [debounceGetroomData])
+            getRoomData();
+    }, [joinId,joinPass])
 
     const handlecreated = () => {
         setIsCreated(true);
@@ -46,13 +40,21 @@ const Home = ({ signout,setRoom }) => {
         setIsCreated(false);
     }
     
-    const joinRoom = (event) => {
-        event.preventDefault();
+    const joinRoom = async(roomData) => {
         if(joinId && joinPass !== ""){
             localStorage.setItem("current-room", JSON.stringify(joinId));
-            setRoom(joinId);
-            console.log(userData);
-
+            if(roomData?.roomID === joinId && roomData?.roomPassword === joinPass){
+                setRoom(joinId);
+                const roomRef = doc(db, "rooms", joinId)
+                const joinedUserEmil = userData?.email;
+                const joinedUserName = userData?.displayName;
+                const joinedAt = new Date().toLocaleTimeString();
+                try{
+                    await updateDoc(roomRef, {members: arrayUnion({email: joinedUserEmil, name: joinedUserName, joinedAt})})
+                }catch(error){
+                    console.error(error.message)
+                }
+            }            
         }else{
             alert("fill out the fileds")
         }
@@ -75,6 +77,11 @@ const Home = ({ signout,setRoom }) => {
                 members:[{
                     email: userData?.email,
                     name: userData?.displayName,
+                }],
+                messages : [{
+                    sentBy : userData?.email,
+                    sentAt : createdAt,
+                    message : "hii"
                 }]
             })
         }else{
@@ -106,7 +113,7 @@ const Home = ({ signout,setRoom }) => {
                 </form>
             </div>}
             {isJoined && <div className={styles.joining}>
-                <form className={styles.joinForm} onSubmit={joinRoom}>
+                <form className={styles.joinForm} onSubmit={(event) => {event.preventDefault(); joinRoom(roomData)}}>
                     <input type="text" onChange={(e) => setJoinId(e.target.value)} value={joinId} placeholder="Room Id"/>
                     <input type="password" onChange={(e) => setJoinPass(e.target.value)} value={joinPass} placeholder="Password"/>
                     <button className={styles.roomBtn} type="submit">join</button>

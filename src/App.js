@@ -35,11 +35,10 @@ function App() {
     {room ? (<div className='chatting-page'>
               <Room room={room} setRoom={setRoom} signout={signout}/>
         </div>) : (<div className='home-page'>
-                    <Home setRoom={setRoom} signout={signout}/>
+                    <Home room={room} setRoom={setRoom} signout={signout}/>
                   </div>)}
     </>
   );
 }
 
 export default App;
-

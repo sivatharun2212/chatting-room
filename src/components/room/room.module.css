@@ -118,3 +118,12 @@
     color: #06323d;
     font-family: "signika",sans-serif;
 }
+
+.time {
+    color: orangered;
+    font-size: 8px;
+}
+
+.notification {
+    font-size: 12px;
+}
